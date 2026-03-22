@@ -1,3 +1,5 @@
+package data.models;
+
 import java.util.List;
 
 public class Book {

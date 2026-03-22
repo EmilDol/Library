@@ -1,3 +1,5 @@
+package data.models;
+
 public class User {
 
     private String username;
