@@ -3,6 +3,7 @@ package context;
 import data.models.User;
 
 public class Session {
+
     private User user;
 
     public User getUser() {

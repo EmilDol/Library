@@ -1,28 +1,28 @@
 package data.repositories;
 
-import data.models.User;
-import data.repositories.contracts.IUserRepository;
+import data.models.Book;
+import data.repositories.contracts.IBookRepository;
 
 import java.util.List;
 
-public class UserRepository implements IUserRepository {
+public class BookTxtFileRepository implements IBookRepository {
     @Override
-    public User GetById(int id) {
+    public Book GetById(int id) {
         return null;
     }
 
     @Override
-    public List<User> GetAll() {
+    public List<Book> GetAll() {
         return List.of();
     }
 
     @Override
-    public boolean Add(User record) {
+    public boolean Add(Book record) {
         return false;
     }
 
     @Override
-    public boolean Update(int id, User record) {
+    public boolean Update(int id, Book record) {
         return false;
     }
 
@@ -32,7 +32,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public boolean Remove(User record) {
+    public boolean Remove(Book record) {
         return false;
     }
 }
