@@ -6,6 +6,8 @@ import data.repositories.contracts.IUserRepository;
 import java.util.List;
 
 public class UserTxtFileRepository implements IUserRepository {
+
+
     @Override
     public User GetById(int id) {
         return null;
@@ -33,6 +35,16 @@ public class UserTxtFileRepository implements IUserRepository {
 
     @Override
     public boolean Remove(User record) {
+        return false;
+    }
+
+    @Override
+    public boolean SaveFile(String fileName) {
+        return false;
+    }
+
+    @Override
+    public boolean Load(String fileName) {
         return false;
     }
 }

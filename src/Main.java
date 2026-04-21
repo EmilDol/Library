@@ -1,6 +1,9 @@
 import  java.util.Scanner;
 
 void main() {
+
+
+
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Welcome to My CLI App!");

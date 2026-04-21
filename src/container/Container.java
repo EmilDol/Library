@@ -1,16 +1,27 @@
 package container;
 
+import context.Session;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Container {
-    private static final Map<Class<?>, Class<?>> repositories = new HashMap<>();
+    private Container() {
+    }
 
-    public static <T> void addRepository(Class<T> contract, Class<? extends T> implementation) {
+    private static final Container instance = new Container();
+
+    public static Container getInstance() {
+        return instance;
+    }
+
+    private final Map<Class<?>, Class<?>> repositories = new HashMap<>();
+
+    public <T> void addRepository(Class<T> contract, Class<? extends T> implementation) {
         repositories.put(contract, implementation);
     }
 
-    public static <T> T getRepository(Class<T> contract) {
+    public <T> T getRepository(Class<T> contract) {
         Class<?> impl = repositories.get(contract);
         if (impl == null) {
             throw new RuntimeException("No mapping found for " + contract);
@@ -21,5 +32,11 @@ public class Container {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private final Session session = new Session();
+
+    public Session getSession() {
+        return session;
     }
 }

@@ -35,4 +35,14 @@ public class BookTxtFileRepository implements IBookRepository {
     public boolean Remove(Book record) {
         return false;
     }
+
+    @Override
+    public boolean SaveFile(String fileName) {
+        return false;
+    }
+
+    @Override
+    public boolean Load(String fileName) {
+        return false;
+    }
 }

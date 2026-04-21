@@ -14,4 +14,8 @@ public interface IRepository<T> {
     boolean Remove(int id);
 
     boolean Remove(T record);
+
+    boolean SaveFile(String fileName);
+
+    boolean Load(String fileName);
 }
