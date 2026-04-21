@@ -13,7 +13,9 @@ public class LogInCommand implements ICommand{
     }
 
     @Override
-    public void Execute() {
+    public boolean Execute(CommandContext context) {
 
+
+        return true;
     }
 }
