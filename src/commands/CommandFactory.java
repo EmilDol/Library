@@ -2,7 +2,7 @@ package commands;
 
 public class CommandFactory {
 
-    static ICommand GetCommand(CommandCode code) {
+    public static ICommand GetCommand(CommandCode code) {
         ICommand cmd = null;
         switch (code) {
             case LogIn -> {

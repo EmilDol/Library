@@ -6,6 +6,8 @@ import data.repositories.contracts.IBookRepository;
 import java.util.List;
 
 public class BookTxtFileRepository implements IBookRepository {
+    private List<Book> items;
+
     @Override
     public Book GetById(int id) {
         return null;

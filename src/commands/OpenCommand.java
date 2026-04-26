@@ -1,7 +1,6 @@
 package commands;
 
-public class LogInCommand implements ICommand{
-
+public class OpenCommand implements ICommand{
     @Override
     public boolean RequiresLogIn() {
         return false;
@@ -9,7 +8,7 @@ public class LogInCommand implements ICommand{
 
     @Override
     public boolean RequiresLogOut() {
-        return true;
+        return false;
     }
 
     @Override
@@ -19,8 +18,6 @@ public class LogInCommand implements ICommand{
 
     @Override
     public boolean Execute(CommandContext context) {
-
-
-        return true;
+        return false;
     }
 }

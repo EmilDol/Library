@@ -6,5 +6,7 @@ public interface ICommand {
 
     boolean RequiresLogOut();
 
+    boolean RequiresAdmin();
+
     boolean Execute(CommandContext context);
 }

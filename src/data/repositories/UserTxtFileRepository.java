@@ -6,7 +6,7 @@ import data.repositories.contracts.IUserRepository;
 import java.util.List;
 
 public class UserTxtFileRepository implements IUserRepository {
-
+    private List<User> items;
 
     @Override
     public User GetById(int id) {

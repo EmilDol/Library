@@ -39,4 +39,14 @@ public class Container {
     public Session getSession() {
         return session;
     }
+
+    private boolean loadedFile;
+
+    public boolean isLoadedFile() {
+        return loadedFile;
+    }
+
+    public void setLoadedFile(boolean loadedFile) {
+        this.loadedFile = loadedFile;
+    }
 }

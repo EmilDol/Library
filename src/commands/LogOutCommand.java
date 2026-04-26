@@ -12,6 +12,11 @@ public class LogOutCommand implements ICommand {
     }
 
     @Override
+    public boolean RequiresAdmin() {
+        return false;
+    }
+
+    @Override
     public boolean Execute(CommandContext context) {
 
         return true;
