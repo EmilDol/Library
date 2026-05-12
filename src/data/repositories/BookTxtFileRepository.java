@@ -6,16 +6,16 @@ import data.repositories.contracts.IBookRepository;
 import java.util.List;
 
 public class BookTxtFileRepository implements IBookRepository {
-    private List<Book> items;
-
-    @Override
-    public Book GetById(int id) {
-        return null;
-    }
+    private static List<Book> items;
 
     @Override
     public List<Book> GetAll() {
         return List.of();
+    }
+
+    @Override
+    public Book GetByName(String name) {
+        return null;
     }
 
     @Override
@@ -24,12 +24,7 @@ public class BookTxtFileRepository implements IBookRepository {
     }
 
     @Override
-    public boolean Update(int id, Book record) {
-        return false;
-    }
-
-    @Override
-    public boolean Remove(int id) {
+    public boolean Update(Book record) {
         return false;
     }
 
@@ -46,5 +41,15 @@ public class BookTxtFileRepository implements IBookRepository {
     @Override
     public boolean Load(String fileName) {
         return false;
+    }
+
+    @Override
+    public boolean Clear() {
+        return false;
+    }
+
+    @Override
+    public Book GetById(int id) {
+        return null;
     }
 }

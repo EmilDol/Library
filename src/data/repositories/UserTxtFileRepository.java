@@ -6,16 +6,16 @@ import data.repositories.contracts.IUserRepository;
 import java.util.List;
 
 public class UserTxtFileRepository implements IUserRepository {
-    private List<User> items;
-
-    @Override
-    public User GetById(int id) {
-        return null;
-    }
+    private static List<User> items;
 
     @Override
     public List<User> GetAll() {
         return List.of();
+    }
+
+    @Override
+    public User GetByName(String name) {
+        return null;
     }
 
     @Override
@@ -24,12 +24,7 @@ public class UserTxtFileRepository implements IUserRepository {
     }
 
     @Override
-    public boolean Update(int id, User record) {
-        return false;
-    }
-
-    @Override
-    public boolean Remove(int id) {
+    public boolean Update(User record) {
         return false;
     }
 
@@ -46,5 +41,15 @@ public class UserTxtFileRepository implements IUserRepository {
     @Override
     public boolean Load(String fileName) {
         return false;
+    }
+
+    @Override
+    public boolean Clear() {
+        return false;
+    }
+
+    @Override
+    public User GetById(int id) {
+        return null;
     }
 }

@@ -11,10 +11,10 @@ public class Book {
     private int year;
     private List<String> keywords;
     private double rating;
-    private int libraryId;
+    private int id;
 
     public Book(String author, String title, String genre, String description,
-                int year, List<String> keywords, double rating, int libraryId) {
+                int year, List<String> keywords, double rating, int id) {
         this.author = author;
         this.title = title;
         this.genre = genre;
@@ -22,7 +22,7 @@ public class Book {
         this.year = year;
         this.keywords = keywords;
         this.rating = rating;
-        this.libraryId = libraryId;
+        this.id = id;
     }
 
     // Getters and Setters
@@ -83,11 +83,16 @@ public class Book {
         this.rating = rating;
     }
 
-    public int getLibraryId() {
-        return libraryId;
+    public int getId() {
+        return id;
     }
 
-    public void setLibraryId(int libraryId) {
-        this.libraryId = libraryId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "author= " + author + ", title='" + title + ", genre= " + genre + ", isbn= " + id;
     }
 }

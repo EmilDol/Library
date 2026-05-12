@@ -1,11 +1,9 @@
 package commands;
 
-import container.Container;
-
-public class LogOutCommand implements ICommand {
+public class ExitCommand implements ICommand{
     @Override
     public boolean RequiresLogIn() {
-        return true;
+        return false;
     }
 
     @Override
@@ -20,7 +18,7 @@ public class LogOutCommand implements ICommand {
 
     @Override
     public boolean Execute(CommandContext context) {
-        Container.getInstance().getSession().setUser(null);
+        System.exit(0);
         return true;
     }
 }

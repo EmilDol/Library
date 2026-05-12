@@ -41,12 +41,23 @@ public class Container {
     }
 
     private boolean loadedFile;
+    private String loadedFileName;
 
     public boolean isLoadedFile() {
         return loadedFile;
     }
 
-    public void setLoadedFile(boolean loadedFile) {
+    public String getLoadedFileName() {
+        return loadedFileName;
+    }
+
+    public void unloadFile() {
+        this.loadedFile = false;
+        this.loadedFileName = "";
+    }
+
+    public void setLoadedFile(boolean loadedFile, String filename) {
         this.loadedFile = loadedFile;
+        this.loadedFileName = filename;
     }
 }

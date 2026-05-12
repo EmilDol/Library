@@ -14,13 +14,16 @@ void main() {
         String input = scanner.nextLine();
 
         ICommand command = null;
-        CommandContext context = null;
+        CommandContext context = new CommandContext();
 
         switch (input) {
             case "exit":
                 return;
             case "open":
                 command = CommandFactory.GetCommand(CommandCode.Open);
+                System.out.println("File name: ");
+                String filename = scanner.nextLine();
+                context.put("filename", filename);
                 break;
         }
 

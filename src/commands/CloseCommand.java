@@ -1,11 +1,10 @@
 package commands;
 
 import container.Container;
-import data.models.User;
 import data.repositories.contracts.IBookRepository;
 import data.repositories.contracts.IUserRepository;
 
-public class OpenCommand implements ICommand{
+public class CloseCommand implements ICommand{
     @Override
     public boolean RequiresLogIn() {
         return false;
@@ -23,19 +22,15 @@ public class OpenCommand implements ICommand{
 
     @Override
     public boolean Execute(CommandContext context) {
-        String filename = context.get("filename", String.class);
-
         IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
-        if (!bookRepository.Load(filename))
+        if (!bookRepository.Clear())
             return false;
 
         IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
-        if (!userRepository.Load(filename))
+        if (!userRepository.Clear())
             return false;
 
-        User defaultAdmin = new User("admin", "i<3Java", true);
-
-        Container.getInstance().setLoadedFile(true, filename);
+        Container.getInstance().unloadFile();
 
         return true;
     }
