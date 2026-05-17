@@ -12,7 +12,6 @@ public enum CommandCode {
     BooksAll,
     BooksFind,
     BooksSort,
-    BooksView,
     BooksAdd,
     BooksRemove,
     UsersAdd,

@@ -1,5 +1,8 @@
 package commands;
 
+import container.Container;
+import data.repositories.contracts.IBookRepository;
+
 public class BooksRemoveCommand implements ICommand{
     @Override
     public boolean RequiresLogIn() {
@@ -18,6 +21,13 @@ public class BooksRemoveCommand implements ICommand{
 
     @Override
     public boolean Execute(CommandContext context) {
-        return false;
+        Integer id = context.get("id", Integer.class);
+
+        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+
+        if (!bookRepository.Remove(id))
+            return false;
+
+        return true;
     }
 }

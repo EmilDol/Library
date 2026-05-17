@@ -13,6 +13,8 @@ public interface IRepository<T> {
 
     boolean Remove(T record);
 
+    boolean Remove(Integer id);
+
     boolean SaveFile(String fileName);
 
     boolean Load(String fileName);

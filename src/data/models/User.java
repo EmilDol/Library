@@ -12,6 +12,9 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
+    public User() {
+    }
+
     // Getters and Setters
 
     public String getUsername() {

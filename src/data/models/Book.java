@@ -25,6 +25,9 @@ public class Book {
         this.id = id;
     }
 
+    public Book() {
+    }
+
     // Getters and Setters
 
     public String getAuthor() {
