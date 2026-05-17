@@ -1,9 +1,15 @@
 import commands.*;
 import container.Container;
+import data.repositories.BookXmlRepository;
+import data.repositories.UserXmlRepository;
+import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.IUserRepository;
 
 import  java.util.Scanner;
 
 void main() {
+    Setup();
+
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Welcome to my library management system!");
@@ -12,6 +18,8 @@ void main() {
     while (true) {
         System.out.print("> ");
         String input = scanner.nextLine();
+
+        input = input.toLowerCase();
 
         ICommand command = null;
         CommandContext context = new CommandContext();
@@ -133,39 +141,61 @@ void main() {
                 context.put("username", username);
                 break;
             }
+            default:
+                System.out.println("Invalid command!");
+                continue;
         }
 
-        if (command.getClass() != OpenCommand.class && !Container.getInstance().isLoadedFile()) {
+        if ((command.getClass() != OpenCommand.class && command.getClass() != HelpCommand.class) && !Container.getInstance().isLoadedFile()) {
             // Не сме заредили файл и се опитваме да правим нещо друго
+            System.out.println("No file is loaded! First run the open command!");
+            continue;
+        }
+
+        if (command.getClass() == OpenCommand.class && Container.getInstance().isLoadedFile()) {
+            // Заредили сме файл и се опитваме да заредим нов
+            System.out.println("There is already an opened file! Either close it or save it before opening a new one!");
             continue;
         }
 
         if (command.RequiresLogOut() && Container.getInstance().getSession().getUser() != null) {
             // Логнати сме, а не трябва да сме
+            System.out.println("You are logged in! Log out first to use this command!");
             continue;
         }
 
         if (command.RequiresLogIn() && Container.getInstance().getSession().getUser() == null) {
             // Не сме логнати, а трябва да сме
+            System.out.println("You are not logged in! Log in first to run this command!");
             continue;
         }
 
         if (command.RequiresAdmin() && !Container.getInstance().getSession().getUser().isAdmin()) {
             // Опитваме се да вършим неща за админи
+            System.out.println("You are not admin! You cannot run this command!");
             continue;
         }
 
         if (!command.Execute(context)) {
+            System.out.println("Fail");
             continue;
         }
 
         if (input.equalsIgnoreCase("exit")) {
-            System.out.println("Goodbye!");
             break;
         }
 
-        System.out.println("You typed: " + input);
+        System.out.println("Success");
     }
 
     scanner.close();
+}
+
+void Setup() {
+    Container.getInstance().addRepository(IBookRepository.class, BookXmlRepository.class);
+    Container.getInstance().addRepository(IUserRepository.class, UserXmlRepository.class);
+
+    Container.getInstance().unloadFile();
+
+    Container.getInstance().getSession().setUser(null);
 }

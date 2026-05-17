@@ -35,6 +35,9 @@ public class OpenCommand implements ICommand{
 
         User defaultAdmin = new User("admin", "i<3Java", true);
 
+        if (userRepository.GetByName(defaultAdmin.getUsername()) == null && !userRepository.Add(defaultAdmin))
+            return false;
+
         Container.getInstance().setLoadedFile(true, filename);
 
         return true;

@@ -18,7 +18,7 @@ public class ExitCommand implements ICommand{
 
     @Override
     public boolean Execute(CommandContext context) {
-        System.exit(0);
+        System.out.println("Goodbye!");
         return true;
     }
 }
