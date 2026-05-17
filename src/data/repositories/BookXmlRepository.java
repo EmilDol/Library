@@ -11,15 +11,31 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Хранилище за управление на обекти Book (книги) в базирано на XML съхранение.
+ *
+ * @author Емил Долчинков
+ */
 public class BookXmlRepository implements IBookRepository {
 
     private static List<Book> items = new ArrayList<>();
 
+    /**
+     * Извлича всички книги от хранилището.
+     *
+     * @return Списък с всички книги.
+     */
     @Override
     public List<Book> GetAll() {
         return Collections.unmodifiableList(items);
     }
 
+    /**
+     * Извлича книга по нейното заглавие.
+     *
+     * @param title Заглавието на книгата, която трябва да бъде намерена.
+     * @return Книгата с посоченото заглавие или null, ако не е намерена.
+     */
     @Override
     public Book GetByName(String title) {
         return items.stream()
@@ -28,6 +44,12 @@ public class BookXmlRepository implements IBookRepository {
                 .orElse(null);
     }
 
+    /**
+     * Извлича книга по нейния уникален идентификатор.
+     *
+     * @param id ID-то на книгата, която трябва да бъде намерена.
+     * @return Книгата с посоченото ID или null, ако не е намерена.
+     */
     @Override
     public Book GetById(int id) {
         return items.stream()
@@ -36,6 +58,12 @@ public class BookXmlRepository implements IBookRepository {
                 .orElse(null);
     }
 
+    /**
+     * Добавя нова книга в хранилището.
+     *
+     * @param record Книгата, която да бъде добавена.
+     * @return true, ако книгата е добавена успешно, false в противен случай.
+     */
     @Override
     public boolean Add(Book record) {
         if (record == null) return false;
@@ -43,6 +71,12 @@ public class BookXmlRepository implements IBookRepository {
         return true;
     }
 
+    /**
+     * Актуализира съществуваща книга в хранилището.
+     *
+     * @param record Книгата с актуализираната информация.
+     * @return true, ако книгата е актуализирана успешно, false в противен случай.
+     */
     @Override
     public boolean Update(Book record) {
         if (record == null) return false;
@@ -55,22 +89,45 @@ public class BookXmlRepository implements IBookRepository {
         return false;
     }
 
+    /**
+     * Премахва книга от хранилището.
+     *
+     * @param record Книгата, която да бъде премахната.
+     * @return true, ако книгата е премахната успешно, false в противен случай.
+     */
     @Override
     public boolean Remove(Book record) {
         return record != null && items.remove(record);
     }
 
+    /**
+     * Премахва книга от хранилището по нейното ID.
+     *
+     * @param id ID-то на книгата, която да бъде премахната.
+     * @return true, ако книгата е премахната успешно, false в противен случай.
+     */
     @Override
     public boolean Remove(Integer id) {
         return items.removeIf(b -> b.getId() == id);
     }
 
+    /**
+     * Изчиства всички книги от хранилището.
+     *
+     * @return винаги true, което показва, че хранилището е изчистено.
+     */
     @Override
     public boolean Clear() {
         items.clear();
         return true;
     }
 
+    /**
+     * Зарежда книги от XML файл.
+     *
+     * @param fileName Пътят до XML файла.
+     * @return true, ако книгите са заредени успешно, false в противен случай.
+     */
     @Override
     public boolean Load(String fileName) {
         try {
@@ -122,6 +179,12 @@ public class BookXmlRepository implements IBookRepository {
         }
     }
 
+    /**
+     * Записва текущия списък с книги в XML файл.
+     *
+     * @param fileName Пътят до XML файла.
+     * @return true, ако книгите са записани успешно, false в противен случай.
+     */
     @Override
     public boolean SaveFile(String fileName) {
         try {
@@ -180,12 +243,27 @@ public class BookXmlRepository implements IBookRepository {
         }
     }
 
+    /**
+     * Извлича текстовото съдържание на посочен таг в родителски елемент.
+     *
+     * @param parent Родителският елемент.
+     * @param tag Името на тага.
+     * @return Текстовото съдържание на тага или празен стринг, ако не е намерен.
+     */
     private String getText(Element parent, String tag) {
         NodeList nl = parent.getElementsByTagName(tag);
         if (nl.getLength() == 0) return "";
         return nl.item(0).getTextContent().trim();
     }
 
+    /**
+     * Добавя нов елемент с текстово съдържание към родителски елемент.
+     *
+     * @param doc XML документът.
+     * @param parent Родителският елемент.
+     * @param tag Името на тага за новия елемент.
+     * @param value Текстовото съдържание за новия елемент.
+     */
     private void appendText(Document doc, Element parent, String tag, String value) {
         Element el = doc.createElement(tag);
         el.appendChild(doc.createTextNode(value == null ? "" : value));

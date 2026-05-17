@@ -7,6 +7,11 @@ import data.repositories.contracts.IUserRepository;
 
 import  java.util.Scanner;
 
+/**
+ * Основна входна точка за системата за управление на библиотека.
+ *
+ * @author Емил Долчинков
+ */
 void main() {
     Setup();
 
@@ -191,6 +196,9 @@ void main() {
     scanner.close();
 }
 
+/**
+ * Конфигурира приложението чрез регистриране на хранилища и инициализиране на сесията.
+ */
 void Setup() {
     Container.getInstance().addRepository(IBookRepository.class, BookXmlRepository.class);
     Container.getInstance().addRepository(IUserRepository.class, UserXmlRepository.class);

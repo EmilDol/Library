@@ -5,23 +5,49 @@ import context.Session;
 import data.models.User;
 import data.repositories.contracts.IUserRepository;
 
+/**
+ * Команда за влизане на потребител в системата.
+ *
+ * @author Емил Долчинков
+ */
 public class LogInCommand implements ICommand{
 
+    /**
+     * Определя дали командата изисква потребителят да е влязъл в системата.
+     *
+     * @return false.
+     */
     @Override
     public boolean RequiresLogIn() {
         return false;
     }
 
+    /**
+     * Определя дали командата изисква потребителят да е излязъл от системата.
+     *
+     * @return true.
+     */
     @Override
     public boolean RequiresLogOut() {
         return true;
     }
 
+    /**
+     * Определя дали командата изисква администраторски привилегии.
+     *
+     * @return false.
+     */
     @Override
     public boolean RequiresAdmin() {
         return false;
     }
 
+    /**
+     * Изпълнява командата за влизане, като удостоверява потребителя.
+     *
+     * @param context Контекстът на командата, съдържащ потребителско име и парола.
+     * @return true, ако влизането е успешно, в противен случай false.
+     */
     @Override
     public boolean Execute(CommandContext context) {
         String username = context.get("username", String.class);

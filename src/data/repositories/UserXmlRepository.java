@@ -13,15 +13,31 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Хранилище за управление на потребителски данни в XML формат.
+ *
+ * @author Емил Долчинков
+ */
 public class UserXmlRepository implements IUserRepository {
 
     private static List<User> items = new ArrayList<>();
 
+    /**
+     * Извлича всички потребители.
+     *
+     * @return Непроменяем списък с всички потребители.
+     */
     @Override
     public List<User> GetAll() {
         return Collections.unmodifiableList(items);
     }
 
+    /**
+     * Извлича потребител по неговото потребителско име.
+     *
+     * @param username Потребителското име, което да се търси.
+     * @return Потребителят, ако е намерен, в противен случай null.
+     */
     @Override
     public User GetByName(String username) {
         return items.stream()
@@ -30,6 +46,12 @@ public class UserXmlRepository implements IUserRepository {
                 .orElse(null);
     }
 
+    /**
+     * Добавя нов запис за потребител.
+     *
+     * @param record Потребителят, който да се добави.
+     * @return true, ако е добавен успешно, false, ако записът е null.
+     */
     @Override
     public boolean Add(User record) {
         if (record == null) return false;
@@ -37,6 +59,12 @@ public class UserXmlRepository implements IUserRepository {
         return true;
     }
 
+    /**
+     * Актуализира съществуващ запис за потребител.
+     *
+     * @param record Записът на потребителя с актуализираната информация.
+     * @return true, ако е актуализиран успешно, false в противен случай.
+     */
     @Override
     public boolean Update(User record) {
         if (record == null) return false;
@@ -49,11 +77,23 @@ public class UserXmlRepository implements IUserRepository {
         return false;
     }
 
+    /**
+     * Премахва запис за потребител.
+     *
+     * @param record Записът на потребителя, който да се премахне.
+     * @return true, ако е премахнат успешно, false в противен случай.
+     */
     @Override
     public boolean Remove(User record) {
         return record != null && items.remove(record);
     }
 
+    /**
+     * Премахва запис за потребител по индекс.
+     *
+     * @param id Индексът на потребителя, който да се премахне.
+     * @return true, ако е премахнат успешно, false, ако индексът е извън границите.
+     */
     @Override
     public boolean Remove(Integer id) {
         if (id < 0 || id >= items.size()) return false;
@@ -61,17 +101,34 @@ public class UserXmlRepository implements IUserRepository {
         return true;
     }
 
+    /**
+     * Изчиства всички записи за потребители.
+     *
+     * @return true.
+     */
     @Override
     public boolean Clear() {
         items.clear();
         return true;
     }
 
+    /**
+     * Извлича потребител по ID.
+     *
+     * @param id ID на потребителя.
+     * @return null, тъй като извличането по ID не е имплементирано тук.
+     */
     @Override
     public User GetById(int id) {
         return null;
     }
 
+    /**
+     * Зарежда потребителски данни от XML файл.
+     *
+     * @param fileName Пътят до XML файла.
+     * @return true, ако е заредено успешно, false в противен случай.
+     */
     @Override
     public boolean Load(String fileName) {
         try {
@@ -111,6 +168,12 @@ public class UserXmlRepository implements IUserRepository {
         }
     }
 
+    /**
+     * Записва потребителски данни в XML файл.
+     *
+     * @param fileName Пътят до XML файла.
+     * @return true, ако е записано успешно, false в противен случай.
+     */
     @Override
     public boolean SaveFile(String fileName) {
         try {
@@ -157,12 +220,27 @@ public class UserXmlRepository implements IUserRepository {
         }
     }
 
+    /**
+     * Помощен метод за извличане на текстово съдържание от XML елемент.
+     *
+     * @param parent Родителският елемент.
+     * @param tag Името на тага.
+     * @return Текстовото съдържание.
+     */
     private String getText(Element parent, String tag) {
         NodeList nl = parent.getElementsByTagName(tag);
         if (nl.getLength() == 0) return "";
         return nl.item(0).getTextContent().trim();
     }
 
+    /**
+     * Помощен метод за добавяне на текстово съдържание към елемент.
+     *
+     * @param doc XML документът.
+     * @param parent Родителският елемент.
+     * @param tag Името на тага.
+     * @param value Стойността, която да се добави.
+     */
     private void appendText(Document doc, Element parent, String tag, String value) {
         Element el = doc.createElement(tag);
         el.appendChild(doc.createTextNode(value == null ? "" : value));

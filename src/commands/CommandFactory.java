@@ -1,7 +1,16 @@
 package commands;
 
+/**
+ * Фабрѝчен клас за създаване на инстанции на команди въз основа на код на команда.
+ * @author Емил Долчинков
+ */
 public class CommandFactory {
 
+    /**
+     * Създава и връща инстанция на команда, съответстваща на дадения код на команда.
+     * @param code Кодът на командата, идентифициращ командата, която трябва да бъде създадена.
+     * @return Инстанция на ICommand или null, ако кодът не е разпознат.
+     */
     public static ICommand GetCommand(CommandCode code) {
         ICommand cmd = null;
         switch (code) {
