@@ -87,6 +87,9 @@ void main() {
             }
             case "books sort": {
                 command = CommandFactory.GetCommand(CommandCode.BooksSort);
+                System.out.println("Direction(asc, desc): ");
+                String dir = scanner.nextLine();
+                context.put("dir", dir);
                 break;
             }
             case "books add": {
