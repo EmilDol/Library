@@ -1,7 +1,7 @@
 package data.repositories;
 
 import data.models.User;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.UserRepository;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.*;
  *
  * @author Емил Долчинков
  */
-public class UserXmlRepository implements IUserRepository {
+public class UserXmlRepository implements UserRepository {
 
     private static List<User> items = new ArrayList<>();
 

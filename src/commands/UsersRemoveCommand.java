@@ -2,7 +2,7 @@ package commands;
 
 import container.Container;
 import data.models.User;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за премахване на потребител от библиотечната система.
@@ -10,7 +10,7 @@ import data.repositories.contracts.IUserRepository;
  *
  * @author Емил Долчинков
  */
-public class UsersRemoveCommand implements ICommand {
+public class UsersRemoveCommand implements Command {
     /**
      * Указва дали тази команда изисква потребителят да е влязъл в системата.
      *
@@ -51,7 +51,7 @@ public class UsersRemoveCommand implements ICommand {
     public boolean Execute(CommandContext context) {
         String username = context.get("username", String.class);
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
         if (userRepository.GetByName(username) != null)
             return false;
 

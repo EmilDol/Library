@@ -2,7 +2,7 @@ package commands;
 
 import container.Container;
 import data.models.User;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за добавяне на нов потребител към библиотечната система.
@@ -10,7 +10,7 @@ import data.repositories.contracts.IUserRepository;
  *
  * @author Емил Долчинков
  */
-public class UsersAddCommand implements ICommand{
+public class UsersAddCommand implements Command {
     /**
      * Указва дали тази команда изисква потребителят да е влязъл в системата.
      *
@@ -52,7 +52,7 @@ public class UsersAddCommand implements ICommand{
         String username = context.get("username", String.class);
         String password = context.get("password", String.class);
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
 
         User tempUser = userRepository.GetByName(username);
         if (tempUser != null)

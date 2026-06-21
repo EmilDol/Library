@@ -2,7 +2,7 @@ package commands;
 
 import container.Container;
 import data.models.Book;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Команда за показване на всички книги в библиотеката.
  * @author Емил Долчинков
  */
-public class BooksAllCommand implements ICommand{
+public class BooksAllCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.
@@ -45,7 +45,7 @@ public class BooksAllCommand implements ICommand{
      */
     @Override
     public boolean Execute(CommandContext context) {
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         List<Book> books = bookRepository.GetAll();
 
         for (Book book : books) {

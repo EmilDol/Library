@@ -5,7 +5,7 @@ package commands;
  *
  * @author Емил Долчинков
  */
-public class HelpCommand implements ICommand{
+public class HelpCommand implements Command {
     /**
      * Определя дали командата изисква потребителят да е влязъл в системата.
      *

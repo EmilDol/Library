@@ -1,14 +1,14 @@
 package commands;
 
 import container.Container;
-import data.repositories.contracts.IBookRepository;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.BookRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за затваряне на текущия файл и изчистване на хранилищата.
  * @author Емил Долчинков
  */
-public class CloseCommand implements ICommand{
+public class CloseCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.
@@ -43,11 +43,11 @@ public class CloseCommand implements ICommand{
      */
     @Override
     public boolean Execute(CommandContext context) {
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         if (!bookRepository.Clear())
             return false;
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
         if (!userRepository.Clear())
             return false;
 

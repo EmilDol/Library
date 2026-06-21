@@ -2,9 +2,8 @@ package commands;
 
 import container.Container;
 import data.models.Book;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * Команда за сортиране на книги въз основа на свойство и посока.
  * @author Емил Долчинков
  */
-public class BooksSortCommand implements ICommand{
+public class BooksSortCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.
@@ -49,7 +48,7 @@ public class BooksSortCommand implements ICommand{
     public boolean Execute(CommandContext context) {
         String direction = context.get("dir", String.class);
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         List<Book> books = bookRepository.GetAll();
 
         switch (direction) {

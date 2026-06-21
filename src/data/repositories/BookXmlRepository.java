@@ -1,7 +1,7 @@
 package data.repositories;
 
 import data.models.Book;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
@@ -16,7 +16,7 @@ import java.util.*;
  *
  * @author Емил Долчинков
  */
-public class BookXmlRepository implements IBookRepository {
+public class BookXmlRepository implements BookRepository {
 
     private static List<Book> items = new ArrayList<>();
 

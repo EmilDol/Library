@@ -2,13 +2,13 @@ package commands;
 
 import container.Container;
 import data.models.Book;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
 /**
  * Команда за намиране на книга по нейното име.
  * @author Емил Долчинков
  */
-public class BooksFindCommand implements ICommand{
+public class BooksFindCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.
@@ -45,7 +45,7 @@ public class BooksFindCommand implements ICommand{
     public boolean Execute(CommandContext context) {
         String value = context.get("value", String.class);
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         Book book = bookRepository.GetByName(value);
         if (book == null)
             return false;

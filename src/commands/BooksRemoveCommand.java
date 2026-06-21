@@ -1,7 +1,7 @@
 package commands;
 
 import container.Container;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
 /**
  * Команда за премахване на книга от библиотеката по нейния ID.
@@ -9,7 +9,7 @@ import data.repositories.contracts.IBookRepository;
  *
  * @author Емил Долчинков
  */
-public class BooksRemoveCommand implements ICommand{
+public class BooksRemoveCommand implements Command {
     /**
      * Указва дали тази команда изисква потребителят да е влязъл в системата.
      *
@@ -50,7 +50,7 @@ public class BooksRemoveCommand implements ICommand{
     public boolean Execute(CommandContext context) {
         Integer id = context.get("id", Integer.class);
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
 
         if (!bookRepository.Remove(id))
             return false;

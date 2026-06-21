@@ -2,8 +2,8 @@ import commands.*;
 import container.Container;
 import data.repositories.BookXmlRepository;
 import data.repositories.UserXmlRepository;
-import data.repositories.contracts.IBookRepository;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.BookRepository;
+import data.repositories.contracts.UserRepository;
 
 import  java.util.Scanner;
 
@@ -26,7 +26,7 @@ void main() {
 
         input = input.toLowerCase();
 
-        ICommand command = null;
+        Command command = null;
         CommandContext context = new CommandContext();
 
         switch (input) {
@@ -203,8 +203,8 @@ void main() {
  * Конфигурира приложението чрез регистриране на хранилища и инициализиране на сесията.
  */
 void Setup() {
-    Container.getInstance().addRepository(IBookRepository.class, BookXmlRepository.class);
-    Container.getInstance().addRepository(IUserRepository.class, UserXmlRepository.class);
+    Container.getInstance().addRepository(BookRepository.class, BookXmlRepository.class);
+    Container.getInstance().addRepository(UserRepository.class, UserXmlRepository.class);
 
     Container.getInstance().unloadFile();
 

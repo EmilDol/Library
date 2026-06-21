@@ -5,7 +5,7 @@ package commands;
  *
  * @author Емил Долчинков
  */
-public class ExitCommand implements ICommand{
+public class ExitCommand implements Command {
     /**
      * Определя дали командата изисква потребителят да е влязъл в системата.
      *

@@ -3,14 +3,14 @@ package commands;
 import container.Container;
 import context.Session;
 import data.models.User;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за влизане на потребител в системата.
  *
  * @author Емил Долчинков
  */
-public class LogInCommand implements ICommand{
+public class LogInCommand implements Command {
 
     /**
      * Определя дали командата изисква потребителят да е влязъл в системата.
@@ -53,7 +53,7 @@ public class LogInCommand implements ICommand{
         String username = context.get("username", String.class);
         String password = context.get("password", String.class);
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
         User user = userRepository.GetByName(username);
         if (user == null)
         {

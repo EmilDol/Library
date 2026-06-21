@@ -11,8 +11,8 @@ public class CommandFactory {
      * @param code Кодът на командата, идентифициращ командата, която трябва да бъде създадена.
      * @return Инстанция на ICommand или null, ако кодът не е разпознат.
      */
-    public static ICommand GetCommand(CommandCode code) {
-        ICommand cmd = null;
+    public static Command GetCommand(CommandCode code) {
+        Command cmd = null;
         switch (code) {
             case LogIn -> {
                 cmd = new LogInCommand();

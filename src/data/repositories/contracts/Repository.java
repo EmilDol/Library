@@ -8,7 +8,7 @@ import java.util.List;
  * @param <T> Типът на обектите, управлявани от хранилището.
  * @author Емил Долчинков
  */
-public interface IRepository<T> {
+public interface Repository<T> {
     /**
      * Извлича всички записи от хранилището.
      *

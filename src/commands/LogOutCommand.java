@@ -6,7 +6,7 @@ import container.Container;
  * Команда за излизане на текущия потребител от сесията.
  * @author Емил Долчинков
  */
-public class LogOutCommand implements ICommand {
+public class LogOutCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.

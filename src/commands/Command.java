@@ -4,7 +4,7 @@ package commands;
  * Интерфейс за всички команди в библиотечната система.
  * @author Емил Долчинков
  */
-public interface ICommand {
+public interface Command {
 
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.

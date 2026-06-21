@@ -2,7 +2,7 @@ package commands;
 
 import container.Container;
 import data.models.Book;
-import data.repositories.contracts.IBookRepository;
+import data.repositories.contracts.BookRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Емил Долчинков
  */
-public class BooksAddCommand implements ICommand{
+public class BooksAddCommand implements Command {
     /**
      * Указва дали тази команда изисква потребителят да е влязъл в системата.
      *
@@ -62,7 +62,7 @@ public class BooksAddCommand implements ICommand{
 
         List<String> keywords = Arrays.asList(keywordsInput.split(","));
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
 
         Integer id = bookRepository.GetAll().stream()
                 .map(Book::getId)

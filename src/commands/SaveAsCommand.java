@@ -1,14 +1,14 @@
 package commands;
 
 import container.Container;
-import data.repositories.contracts.IBookRepository;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.BookRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за запазване на данните от библиотеката в посочен файл.
  * @author Емил Долчинков
  */
-public class SaveAsCommand implements ICommand{
+public class SaveAsCommand implements Command {
     /**
      * Проверява дали командата изисква потребителят да е влязъл в системата.
      * @return true, ако се изисква влизане, в противен случай false.
@@ -45,11 +45,11 @@ public class SaveAsCommand implements ICommand{
     public boolean Execute(CommandContext context) {
         String filename = context.get("filename", String.class);
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
         if (!userRepository.SaveFile(filename))
             return false;
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         if (!bookRepository.SaveFile(filename))
             return false;
 

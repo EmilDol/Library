@@ -2,15 +2,15 @@ package commands;
 
 import container.Container;
 import data.models.User;
-import data.repositories.contracts.IBookRepository;
-import data.repositories.contracts.IUserRepository;
+import data.repositories.contracts.BookRepository;
+import data.repositories.contracts.UserRepository;
 
 /**
  * Команда за отваряне на библиотечен файл и зареждане на данните от него.
  *
  * @author Емил Долчинков
  */
-public class OpenCommand implements ICommand{
+public class OpenCommand implements Command {
     /**
      * Определя дали командата изисква потребителят да е влязъл в системата.
      *
@@ -51,11 +51,11 @@ public class OpenCommand implements ICommand{
     public boolean Execute(CommandContext context) {
         String filename = context.get("filename", String.class);
 
-        IBookRepository bookRepository = Container.getInstance().getRepository(IBookRepository.class);
+        BookRepository bookRepository = Container.getInstance().getRepository(BookRepository.class);
         if (!bookRepository.Load(filename))
             return false;
 
-        IUserRepository userRepository = Container.getInstance().getRepository(IUserRepository.class);
+        UserRepository userRepository = Container.getInstance().getRepository(UserRepository.class);
         if (!userRepository.Load(filename))
             return false;
 
