@@ -1,83 +1,50 @@
 package commands;
 
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 /**
- * Фабрѝчен клас за създаване на инстанции на команди въз основа на код на команда.
+ * Фабричен клас за създаване на инстанции на команди въз основа на код на команда.
  * @author Емил Долчинков
  */
 public class CommandFactory {
+
+    private static final Map<CommandCode, Supplier<Command>> COMMAND_MAP = new EnumMap<>(CommandCode.class);
+
+    static {
+        COMMAND_MAP.put(CommandCode.LOG_IN, LogInCommand::new);
+        COMMAND_MAP.put(CommandCode.LOG_OUT, LogOutCommand::new);
+        COMMAND_MAP.put(CommandCode.OPEN, OpenCommand::new);
+        COMMAND_MAP.put(CommandCode.CLOSE, CloseCommand::new);
+        COMMAND_MAP.put(CommandCode.SAVE, SaveCommand::new);
+        COMMAND_MAP.put(CommandCode.SAVE_AS, SaveAsCommand::new);
+        COMMAND_MAP.put(CommandCode.HELP, HelpCommand::new);
+        COMMAND_MAP.put(CommandCode.EXIT, ExitCommand::new);
+
+        COMMAND_MAP.put(CommandCode.BOOKS_ALL, BooksAllCommand::new);
+        COMMAND_MAP.put(CommandCode.BOOKS_FIND, BooksFindCommand::new);
+        COMMAND_MAP.put(CommandCode.BOOKS_SORT, BooksSortCommand::new);
+        COMMAND_MAP.put(CommandCode.BOOKS_ADD, BooksAddCommand::new);
+        COMMAND_MAP.put(CommandCode.BOOKS_REMOVE, BooksRemoveCommand::new);
+
+        COMMAND_MAP.put(CommandCode.USERS_ADD, UsersAddCommand::new);
+        COMMAND_MAP.put(CommandCode.USERS_REMOVE, UsersRemoveCommand::new);
+    }
 
     /**
      * Създава и връща инстанция на команда, съответстваща на дадения код на команда.
      * @param code Кодът на командата, идентифициращ командата, която трябва да бъде създадена.
      * @return Инстанция на ICommand или null, ако кодът не е разпознат.
      */
-    public static Command GetCommand(CommandCode code) {
-        Command cmd = null;
-        switch (code) {
-            case LogIn -> {
-                cmd = new LogInCommand();
-                break;
-            }
-            case LogOut -> {
-                cmd = new LogOutCommand();
-                break;
-            }
-            case Open -> {
-                cmd = new OpenCommand();
-                break;
-            }
-            case Close -> {
-                cmd = new CloseCommand();
-                break;
-            }
-            case Save -> {
-                cmd = new SaveCommand();
-                break;
-            }
-            case SaveAs -> {
-                cmd = new SaveAsCommand();
-                break;
-            }
-            case Help -> {
-                cmd = new HelpCommand();
-                break;
-            }
-            case Exit -> {
-                cmd = new ExitCommand();
-                break;
-            }
-            case BooksAll -> {
-                cmd = new BooksAllCommand();
-                break;
-            }
-            case BooksFind -> {
-                cmd = new BooksFindCommand();
-                break;
-            }
-            case BooksSort -> {
-                cmd = new BooksSortCommand();
-                break;
-            }
-            case BooksAdd -> {
-                cmd = new BooksAddCommand();
-                break;
-            }
-            case BooksRemove -> {
-                cmd = new BooksRemoveCommand();
-                break;
-            }
-            case UsersAdd -> {
-                cmd = new UsersAddCommand();
-                break;
-            }
-            case UsersRemove -> {
-                cmd = new UsersRemoveCommand();
-                break;
-            }
-            // TODO: да добавя грешка за default
+    public static Command getCommand(CommandCode code) {
+        Supplier<Command> supplier = COMMAND_MAP.get(code);
+
+        if (supplier == null) {
+            throw new IllegalArgumentException("Unsupported command: " + code);
         }
 
-        return cmd;
+        return supplier.get();
     }
 
 }

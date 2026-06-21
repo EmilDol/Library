@@ -26,135 +26,18 @@ void main() {
 
         input = input.toLowerCase();
 
-        Command command = null;
-        CommandContext context = new CommandContext();
-
-        switch (input) {
-            case "exit": {
-                command = CommandFactory.GetCommand(CommandCode.Exit);
-                break;
-            }
-            case "open": {
-                command = CommandFactory.GetCommand(CommandCode.Open);
-                System.out.println("File name: ");
-                String filename = scanner.nextLine();
-                context.put("filename", filename);
-                break;
-            }
-            case "close": {
-                command = CommandFactory.GetCommand(CommandCode.Close);
-                break;
-                }
-            case "save": {
-                command = CommandFactory.GetCommand(CommandCode.Save);
-                break;
-            }
-            case "save as": {
-                command = CommandFactory.GetCommand(CommandCode.SaveAs);
-                System.out.println("File name: ");
-                String filename = scanner.nextLine();
-                context.put("filename", filename);
-                break;
-            }
-            case "help": {
-                command = CommandFactory.GetCommand(CommandCode.Help);
-                break;
-            }
-            case "login": {
-                command = CommandFactory.GetCommand(CommandCode.LogIn);
-                System.out.println("Username: ");
-                String username = scanner.nextLine();
-                context.put("username", username);
-                System.out.println("Password: ");
-                String password = scanner.nextLine();
-                context.put("password", password);
-                break;
-            }
-            case "logout": {
-                command = CommandFactory.GetCommand(CommandCode.LogOut);
-                break;
-            }
-            case "books all": {
-                command = CommandFactory.GetCommand(CommandCode.BooksAll);
-                break;
-            }
-            case "books find": {
-                command = CommandFactory.GetCommand(CommandCode.BooksFind);
-                System.out.println("Book name: ");
-                String bookname = scanner.nextLine();
-                context.put("value", bookname);
-                break;
-            }
-            case "books sort": {
-                command = CommandFactory.GetCommand(CommandCode.BooksSort);
-                System.out.println("Direction(asc, desc): ");
-                String dir = scanner.nextLine();
-                context.put("dir", dir);
-                break;
-            }
-            case "books add": {
-                command = CommandFactory.GetCommand(CommandCode.BooksAdd);
-
-                System.out.println("Name: ");
-                String bookname = scanner.nextLine();
-                context.put("bookname", bookname);
-
-                System.out.println("Author: ");
-                String author = scanner.nextLine();
-                context.put("author", author);
-
-                System.out.println("Genre: ");
-                String genre = scanner.nextLine();
-                context.put("genre", genre);
-
-                System.out.println("Description: ");
-                String description = scanner.nextLine();
-                context.put("description", description);
-
-                System.out.println("Year: ");
-                Integer year = Integer.parseInt(scanner.nextLine());
-                context.put("year", year);
-
-                System.out.println("Rating: ");
-                Double rating = Double.parseDouble(scanner.nextLine());
-                context.put("rating", rating);
-
-                System.out.println("Keywords (separated by \",\"): ");
-                String keywords = scanner.nextLine();
-                context.put("keywords", keywords);
-                break;
-            }
-            case "books remove": {
-                command = CommandFactory.GetCommand(CommandCode.BooksRemove);
-                System.out.println("Book id: ");
-                Integer id = Integer.parseInt(scanner.nextLine());
-                context.put("id", id);
-                break;
-            }
-            case "users add": {
-                command = CommandFactory.GetCommand(CommandCode.UsersAdd);
-                System.out.println("Username: ");
-                String username = scanner.nextLine();
-                context.put("username", username);
-
-                System.out.println("Password: ");
-                String password = scanner.nextLine();
-                context.put("password", password);
-                break;
-            }
-            case "users remove": {
-                command = CommandFactory.GetCommand(CommandCode.UsersRemove);
-                System.out.println("Username: ");
-                String username = scanner.nextLine();
-                context.put("username", username);
-                break;
-            }
-            default:
-                System.out.println("Invalid command!");
-                continue;
+        CommandCode commandCode = CommandCode.fromString(input);
+        if (commandCode == CommandCode.ILLEGAL_COMMAND) {
+            System.out.println("Incorrect command! Try something else (or help to see the command list): ");
+            continue;
         }
 
-        if ((command.getClass() != OpenCommand.class && command.getClass() != HelpCommand.class) && !Container.getInstance().isLoadedFile()) {
+        Command command = CommandFactory.getCommand(commandCode);
+        CommandContext context = new CommandContext();
+
+        BuildCommandContext(commandCode, context, scanner);
+
+        if ((command.getClass() != OpenCommand.class && command.getClass() != HelpCommand.class && ExitCommand.class != command.getClass()) && !Container.getInstance().isLoadedFile()) {
             // Не сме заредили файл и се опитваме да правим нещо друго
             System.out.println("No file is loaded! First run the open command!");
             continue;
@@ -197,6 +80,85 @@ void main() {
     }
 
     scanner.close();
+}
+
+/**
+ * Вкарва параметри в CommandContext обекта
+ */
+void BuildCommandContext(CommandCode commandCode, CommandContext context, Scanner scanner) {
+    // събираме входни данни
+    switch (commandCode) {
+        case OPEN, SAVE_AS: {
+            System.out.println("File name: ");
+            String filename = scanner.nextLine();
+            context.put("filename", filename);
+            break;
+        }
+        case LOG_IN, USERS_ADD: {
+            System.out.println("Username: ");
+            String username = scanner.nextLine();
+            context.put("username", username);
+            System.out.println("Password: ");
+            String password = scanner.nextLine();
+            context.put("password", password);
+            break;
+        }
+        case BOOKS_FIND: {
+            System.out.println("Book name: ");
+            String bookname = scanner.nextLine();
+            context.put("value", bookname);
+            break;
+        }
+        case BOOKS_SORT: {
+            System.out.println("Direction(asc, desc): ");
+            String dir = scanner.nextLine();
+            context.put("dir", dir);
+            break;
+        }
+        case BOOKS_ADD: {
+
+            System.out.println("Name: ");
+            String bookname = scanner.nextLine();
+            context.put("bookname", bookname);
+
+            System.out.println("Author: ");
+            String author = scanner.nextLine();
+            context.put("author", author);
+
+            System.out.println("Genre: ");
+            String genre = scanner.nextLine();
+            context.put("genre", genre);
+
+            System.out.println("Description: ");
+            String description = scanner.nextLine();
+            context.put("description", description);
+
+            System.out.println("Year: ");
+            Integer year = Integer.parseInt(scanner.nextLine());
+            context.put("year", year);
+
+            System.out.println("Rating: ");
+            Double rating = Double.parseDouble(scanner.nextLine());
+            context.put("rating", rating);
+
+            System.out.println("Keywords (separated by \",\"): ");
+            String keywords = scanner.nextLine();
+            context.put("keywords", keywords);
+            break;
+        }
+        case BOOKS_REMOVE: {
+            System.out.println("Book id: ");
+            Integer id = Integer.parseInt(scanner.nextLine());
+            context.put("id", id);
+            break;
+        }
+        case USERS_REMOVE: {
+            System.out.println("Username: ");
+            String username = scanner.nextLine();
+            context.put("username", username);
+            break;
+        }
+    }
 }
 
 /**

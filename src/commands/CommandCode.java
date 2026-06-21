@@ -7,33 +7,57 @@ package commands;
  */
 public enum CommandCode {
     /** Команда за влизане */
-    LogIn,
+    LOG_IN("login"),
     /** Команда за излизане */
-    LogOut,
+    LOG_OUT("logout"),
     /** Команда за отваряне на файл */
-    Open,
+    OPEN("open"),
     /** Команда за затваряне на файл */
-    Close,
+    CLOSE("close"),
     /** Команда за запазване на текущия файл */
-    Save,
+    SAVE("save"),
     /** Команда за запазване на текущия файл като */
-    SaveAs,
+    SAVE_AS("save as"),
     /** Команда за помощ */
-    Help,
+    HELP("help"),
     /** Команда за изход от приложението */
-    Exit,
+    EXIT("exit"),
     /** Команда за списък на всички книги */
-    BooksAll,
+    BOOKS_ALL("books all"),
     /** Команда за намиране на книги */
-    BooksFind,
+    BOOKS_FIND("books find"),
     /** Команда за сортиране на книги */
-    BooksSort,
+    BOOKS_SORT("books sort"),
     /** Команда за добавяне на книга */
-    BooksAdd,
+    BOOKS_ADD("books add"),
     /** Команда за премахване на книга */
-    BooksRemove,
+    BOOKS_REMOVE("books remove"),
     /** Команда за добавяне на потребител */
-    UsersAdd,
+    USERS_ADD("users add"),
     /** Команда за премахване на потребител */
-    UsersRemove,
+    USERS_REMOVE("users remove"),
+    /** Стойност при невалиден вход от потребителя */
+    ILLEGAL_COMMAND(null);
+
+    private final String text;
+
+    CommandCode(String text) {
+        this.text = text;
+    }
+
+    public static CommandCode fromString(String input) {
+        if (input == null) return ILLEGAL_COMMAND;
+
+        for (CommandCode c : values()) {
+            if (c.text != null && c.text.equalsIgnoreCase(input)) {
+                return c;
+            }
+        }
+
+        return ILLEGAL_COMMAND;
+    }
+
+    public String getText() {
+        return text;
+    }
 }
